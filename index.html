@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhà Thang Studio - Thiết kế & thi công cầu thang kính, gỗ, inox, sắt</title>
+<meta name="description" content="Nhà Thang Studio chuyên thiết kế, sản xuất và thi công cầu thang kính, cầu thang gỗ, inox, sắt nghệ thuật, lan can nhôm đúc. Tư vấn miễn phí, bảo hành dài hạn.">
+<!--
+  ==== CÁCH CẤU HÌNH TRANG ====
+  - Mở trang với đuôi #edit (vd: landing-page.html#edit) để mở bảng "Cấu hình":
+    sửa tên thương hiệu, số điện thoại, địa chỉ, tên/giá/mã sản phẩm, ảnh (dán link hoặc tải từ máy),
+    thêm / xóa / đổi thứ tự danh mục, sản phẩm, công trình, ý kiến khách hàng.
+  - Thay đổi lưu trong trình duyệt của bạn. Bấm "Xuất cấu hình" để tải file JSON, rồi dán
+    nội dung vào DEFAULT_CONFIG (cuối file) để mọi khách truy cập đều thấy.
+  - Có thể sửa trực tiếp DEFAULT_CONFIG: ảnh để đường dẫn như "images/a.jpg" hoặc link https://...
+-->
+<style>
+  :root{
+    --primary:#1f4e79;
+    --primary-dark:#143650;
+    --accent:#e8a33d;
+    --accent-dark:#c98819;
+    --ink:#1d2733;
+    --muted:#5f6b7a;
+    --bg:#ffffff;
+    --soft:#f4f6f9;
+    --line:#e3e8ee;
+    --radius:14px;
+    --shadow:0 8px 28px rgba(20,54,80,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+  .container{width:min(1180px,100% - 32px);margin-inline:auto}
+  section{padding:72px 0}
+  .section-head{text-align:center;max-width:720px;margin:0 auto 44px}
+  .section-head .eyebrow{display:inline-block;color:var(--accent-dark);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;margin-bottom:8px}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.25;color:var(--primary-dark)}
+  .section-head p{color:var(--muted);margin-top:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;border:2px solid transparent;cursor:pointer;transition:.2s;font-size:1rem;font-family:inherit}
+  .btn-accent{background:var(--accent);color:#2b1c00}
+  .btn-accent:hover{background:var(--accent-dark);transform:translateY(-2px)}
+  .btn-ghost{border-color:#fff;color:#fff}
+  .btn-ghost:hover{background:#fff;color:var(--primary-dark)}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-primary:hover{background:var(--primary-dark)}
+
+  /* Topbar + header */
+  .topbar{background:var(--primary-dark);color:#cfe0ee;font-size:.88rem}
+  .topbar .container{display:flex;justify-content:space-between;gap:12px;padding:8px 0;flex-wrap:wrap}
+  .topbar strong{color:var(--accent)}
+  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--primary-dark)}
+  .logo-mark{width:38px;height:38px;border-radius:10px;background:var(--primary);display:grid;place-items:center}
+  .logo small{display:block;font-weight:600;font-size:.62rem;letter-spacing:.2em;color:var(--accent-dark);margin-top:-4px}
+  .menu{display:flex;gap:26px;font-weight:600}
+  .menu a{padding:6px 0;border-bottom:2px solid transparent;transition:.2s}
+  .menu a:hover{color:var(--primary);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .hotline{font-weight:800;color:var(--primary);white-space:nowrap}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:6px}
+  .burger span{display:block;width:26px;height:3px;background:var(--primary-dark);margin:5px 0;border-radius:2px}
+
+  /* Hero */
+  .hero{position:relative;color:#fff;padding:96px 0 110px;background:
+    radial-gradient(900px 400px at 85% 10%,rgba(232,163,61,.25),transparent 60%),
+    linear-gradient(135deg,#143650 0%,#1f4e79 55%,#2a6a9e 100%);overflow:hidden}
+  .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.15;margin-bottom:18px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p.lead{font-size:1.1rem;color:#d6e4f0;max-width:560px;margin-bottom:28px}
+  .hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-points{display:flex;gap:24px;margin-top:34px;flex-wrap:wrap;color:#cfe0ee;font-size:.95rem}
+  .hero-points li::before{content:"✓";color:var(--accent);font-weight:800;margin-right:8px}
+  .hero-art{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:22px;backdrop-filter:blur(4px)}
+  .hero-art svg{width:100%;height:auto}
+
+  /* Stats */
+  .stats{margin-top:-52px;position:relative;z-index:5;padding:0}
+  .stats .box{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:26px 16px;text-align:center;border-right:1px solid var(--line)}
+  .stat:last-child{border:0}
+  .stat b{display:block;font-size:2rem;color:var(--primary);line-height:1.1}
+  .stat span{color:var(--muted);font-size:.92rem}
+
+  /* About */
+  .about .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .about h2{font-size:clamp(1.6rem,3vw,2.3rem);color:var(--primary-dark);line-height:1.25;margin:6px 0 16px}
+  .about p{color:var(--muted);margin-bottom:14px}
+  .about .eyebrow{color:var(--accent-dark);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+  .checks{margin:18px 0 26px;display:grid;gap:10px}
+  .checks li{padding-left:30px;position:relative}
+  .checks li::before{content:"✓";position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#2b1c00;font-weight:800;font-size:.8rem;display:grid;place-items:center}
+  .video-ph{aspect-ratio:16/10;border-radius:var(--radius);background:linear-gradient(135deg,#dce6f0,#b9cde0);display:grid;place-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .video-ph svg.bg{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .play{width:76px;height:76px;border-radius:50%;background:var(--accent);display:grid;place-items:center;position:relative;box-shadow:0 0 0 12px rgba(232,163,61,.3)}
+  .play::after{content:"";border-left:22px solid #2b1c00;border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}
+
+  /* Product categories */
+  .soft{background:var(--soft)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(20,54,80,.06);transition:.25s;border:1px solid var(--line);display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .ph{aspect-ratio:16/10;display:grid;place-items:center;position:relative;overflow:hidden}
+  .ph svg{width:62%;height:auto;aspect-ratio:200/130}
+  .ph.glass{background:linear-gradient(135deg,#d7ecf7,#a9d3ea);color:#2c7ba8}
+  .ph.wood{background:linear-gradient(135deg,#f0dcc2,#d7b48a);color:#8a5a2b}
+  .ph.inox{background:linear-gradient(135deg,#e7ebef,#bcc6d0);color:#5d6b79}
+  .ph.iron{background:linear-gradient(135deg,#dadde2,#9aa1ab);color:#2f353d}
+  .ph.alu{background:linear-gradient(135deg,#f3e6cf,#e0c08a);color:#6a4a14}
+  .ph.window{background:linear-gradient(135deg,#dcefe6,#a8d4c0);color:#2a7458}
+  .tag{position:absolute;top:12px;left:12px;background:var(--primary-dark);color:#fff;font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:999px}
+  .card-body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+  .card h3{font-size:1.2rem;color:var(--primary-dark);margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.95rem;flex:1}
+  .card .more{margin-top:14px;font-weight:700;color:var(--primary)}
+  .card .more::after{content:" →"}
+
+  /* Best sellers */
+  .products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .product{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;position:relative;display:flex;flex-direction:column}
+  .product .hot{position:absolute;top:12px;right:12px;z-index:2;background:#d9363e;color:#fff;font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.05em}
+  .product .info{padding:16px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .product h3{font-size:1.05rem;color:var(--primary-dark)}
+  .sku{font-size:.8rem;color:var(--muted)}
+  .price{margin-top:auto;padding-top:6px}
+  .price del{color:#98a3b0;font-size:.9rem;margin-right:8px}
+  .price b{font-size:1.2rem;color:#d9363e}
+  .price i{font-style:normal;color:var(--primary);font-weight:700}
+  .product .btn{margin-top:10px;justify-content:center;padding:10px 16px;font-size:.92rem}
+  .note{text-align:center;color:var(--muted);font-size:.88rem;margin-top:20px}
+
+  /* Why us */
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .why-item{background:#fff;padding:28px 24px;border-radius:var(--radius);border:1px solid var(--line)}
+  .why-item .ico{width:54px;height:54px;border-radius:14px;background:rgba(31,78,121,.1);display:grid;place-items:center;font-size:1.6rem;margin-bottom:14px}
+  .why-item h3{color:var(--primary-dark);margin-bottom:6px}
+  .why-item p{color:var(--muted);font-size:.95rem}
+
+  /* Process */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;counter-reset:s}
+  .step{text-align:center;position:relative;padding:0 6px}
+  .step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;font-size:1.3rem;margin:0 auto 14px;position:relative;z-index:2}
+  .step:not(:last-child)::after{content:"";position:absolute;top:28px;left:calc(50% + 34px);width:calc(100% - 68px);border-top:2px dashed #b3c4d4}
+  .step h3{font-size:1.05rem;color:var(--primary-dark);margin-bottom:4px}
+  .step p{color:var(--muted);font-size:.9rem}
+
+  /* Projects */
+  .projects{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .project{border-radius:var(--radius);overflow:hidden;position:relative;background:#fff;border:1px solid var(--line)}
+  .project .ph{aspect-ratio:4/3}
+  .project h3{font-size:.95rem;padding:12px 14px;color:var(--primary-dark);line-height:1.35}
+
+  /* Testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--line);position:relative}
+  .quote::before{content:"“";position:absolute;top:6px;right:20px;font-size:4.5rem;color:rgba(232,163,61,.5);font-family:Georgia,serif;line-height:1}
+  .quote p{color:var(--ink);margin-bottom:18px;position:relative}
+  .who{display:flex;align-items:center;gap:12px}
+  .avatar{width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:800}
+  .who b{display:block;color:var(--primary-dark)}
+  .who span{font-size:.85rem;color:var(--muted)}
+  .stars{color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+
+  /* Services + news */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+  .two-col h2{color:var(--primary-dark);font-size:1.6rem;margin-bottom:18px;padding-bottom:10px;border-bottom:3px solid var(--accent);display:inline-block}
+  .list-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .list-item .mini{flex:0 0 78px;height:56px;border-radius:10px;display:grid;place-items:center;font-size:1.5rem}
+  .list-item h3{font-size:1rem;color:var(--primary-dark);line-height:1.35}
+  .list-item p{font-size:.88rem;color:var(--muted)}
+
+  /* FAQ */
+  .faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  summary{cursor:pointer;font-weight:700;color:var(--primary-dark);list-style:none;display:flex;justify-content:space-between;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--accent-dark)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--muted)}
+
+  /* Partners */
+  .partners{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+  .partner{padding:14px 28px;border:1px dashed #b3c0cd;border-radius:10px;color:#7a8794;font-weight:700;letter-spacing:.06em;background:#fff}
+
+  /* Contact */
+  .contact{background:linear-gradient(135deg,#143650,#1f4e79);color:#fff}
+  .contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .contact h2{font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.25;margin-bottom:14px}
+  .contact p{color:#d0e0ee}
+  .info-list{margin-top:24px;display:grid;gap:14px}
+  .info-list li{display:flex;gap:12px;align-items:flex-start}
+  .info-list .i{flex:0 0 40px;height:40px;border-radius:10px;background:rgba(255,255,255,.12);display:grid;place-items:center}
+  .form{background:#fff;color:var(--ink);padding:30px;border-radius:var(--radius);box-shadow:0 14px 40px rgba(0,0,0,.25)}
+  .form h3{color:var(--primary-dark);margin-bottom:16px;font-size:1.3rem}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:5px}
+  .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(31,78,121,.15)}
+  .form .btn{width:100%;justify-content:center}
+  .form-msg{display:none;margin-top:12px;padding:12px 14px;border-radius:10px;background:#e6f6ec;color:#17623a;font-weight:600}
+
+  /* Footer */
+  footer{background:#0f2638;color:#9fb3c6;padding:56px 0 20px;font-size:.93rem}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+  footer h4{color:#fff;margin-bottom:14px}
+  footer li{margin-bottom:8px}
+  footer a:hover{color:var(--accent)}
+  .copy{border-top:1px solid rgba(255,255,255,.1);margin-top:36px;padding-top:18px;text-align:center;font-size:.85rem}
+
+  /* Floating call */
+  .float{position:fixed;right:16px;bottom:18px;z-index:60;display:grid;gap:10px}
+  .float a{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:1.4rem;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  .float .call{background:#d9363e;animation:pulse 1.8s infinite}
+  .float .zalo{background:#0068ff;font-size:.8rem;font-weight:800}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,54,62,.6)}70%{box-shadow:0 0 0 16px rgba(217,54,62,0)}100%{box-shadow:0 0 0 0 rgba(217,54,62,0)}}
+
+  /* Responsive */
+  @media (max-width:1024px){
+    .products{grid-template-columns:repeat(2,1fr)}
+    .projects{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(3,1fr);row-gap:30px}
+    .step::after{display:none}
+    .foot{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:860px){
+    section{padding:56px 0}
+    .menu{display:none;position:absolute;top:70px;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 16px 16px;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+    .menu.open{display:flex}
+    .menu a{padding:12px 0;border-bottom:1px solid var(--line)}
+    .burger{display:block}
+    .hotline{display:none}
+    .hero{padding:64px 0 90px}
+    .hero .grid,.about .grid,.two-col,.contact .grid{grid-template-columns:1fr}
+    .cards,.quotes,.why{grid-template-columns:1fr 1fr}
+    .stats .box{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:0}
+    .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  }
+  @media (max-width:560px){
+    .cards,.quotes,.why,.products,.projects{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .foot{grid-template-columns:1fr}
+    .topbar .container{justify-content:center;text-align:center}
+    .nav-cta .btn{display:none}
+  }
+
+  /* ===== Dynamic images ===== */
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ph.has-img svg{display:none}
+  .ph .tag{z-index:2}
+
+  /* ===== Editor panel ===== */
+  .ed-open{position:fixed;left:16px;bottom:18px;z-index:120;background:#1d2733;color:#fff;border:0;border-radius:999px;padding:12px 18px;font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .ed-panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:#fff;z-index:130;box-shadow:-10px 0 40px rgba(0,0,0,.25);display:none;flex-direction:column;font-size:.92rem}
+  .ed-panel.show{display:flex}
+  .ed-head{padding:14px 16px;background:#143650;color:#fff;display:flex;justify-content:space-between;align-items:center}
+  .ed-head b{font-size:1.05rem}
+  .ed-x{background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+  .ed-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);background:#f4f6f9}
+  .ed-tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:inherit}
+  .ed-tabs button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .ed-body{flex:1;overflow:auto;padding:14px 16px}
+  .ed-f{margin-bottom:12px}
+  .ed-f label{display:block;font-weight:600;font-size:.82rem;margin-bottom:4px;color:#46515e}
+  .ed-f input[type=text],.ed-f textarea,.ed-f select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit}
+  .ed-f textarea{min-height:70px;resize:vertical}
+  .ed-img{display:flex;gap:10px;align-items:flex-start}
+  .ed-img .pv{flex:0 0 72px;height:54px;border-radius:8px;background:#e8edf2 center/cover no-repeat;border:1px solid var(--line)}
+  .ed-img .col{flex:1;display:grid;gap:6px;min-width:0}
+  .ed-img input[type=file]{font-size:.8rem;max-width:100%}
+  .ed-item{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fff}
+  .ed-item>summary{padding:10px 12px;font-weight:700;cursor:pointer;color:var(--primary-dark);list-style:none;display:block}
+  .ed-item>summary::after{display:none}
+  .ed-item .in{padding:4px 12px 12px;border-top:1px solid var(--line)}
+  .ed-row{display:flex;gap:6px;margin-top:6px}
+  .ed-btn{border:1px solid var(--line);background:#f4f6f9;border-radius:8px;padding:7px 11px;cursor:pointer;font-weight:600;font-size:.82rem;font-family:inherit}
+  .ed-btn.red{color:#a12127;border-color:#f0c4c6;background:#fdf1f1}
+  .ed-btn.pri{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .ed-foot{padding:12px 16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;background:#f4f6f9}
+  .ed-hint{font-size:.8rem;color:var(--muted);margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<!-- SVG symbols dùng lại -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="stairs" viewBox="0 0 200 130">
+    <g fill="currentColor">
+      <rect x="10" y="108" width="40" height="14" rx="2"/>
+      <rect x="45" y="90" width="40" height="14" rx="2" opacity=".92"/>
+      <rect x="80" y="72" width="40" height="14" rx="2" opacity=".84"/>
+      <rect x="115" y="54" width="40" height="14" rx="2" opacity=".76"/>
+      <rect x="150" y="36" width="40" height="14" rx="2" opacity=".68"/>
+    </g>
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity=".85">
+      <path d="M12 96 L190 24"/>
+      <path d="M30 96V108M65 78V90M100 60V72M135 42V54M170 24V36"/>
+    </g>
+  </symbol>
+</svg>
+
+<div class="topbar">
+  <div class="container">
+    <span>Tư vấn thiết kế &amp; báo giá miễn phí – Khảo sát tận nơi trong 24h</span>
+    <span>Hotline 24/7: <strong>{{phone}}</strong></span>
+  </div>
+</div>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="logo" aria-label="{{brand}}">
+      <span class="logo-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h5v-5h5v-5h5V5h3"/></svg>
+      </span>
+      <span>{{brandMain}}<small>{{brandSub}}</small></span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#san-pham">Sản phẩm</a>
+      <a href="#ban-chay">Bán chạy</a>
+      <a href="#cong-trinh">Công trình</a>
+      <a href="#danh-gia">Khách hàng</a>
+      <a href="#lien-he">Liên hệ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="hotline" href="tel:{{phoneRaw}}">📞 {{phone}}</a>
+      <a class="btn btn-accent" href="#lien-he">Nhận báo giá</a>
+      <button class="burger" id="burger" aria-label="Mở menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container grid">
+    <div>
+      <h1>Cầu thang đẹp – <em>bền vững</em><br>cho mọi ngôi nhà</h1>
+      <p class="lead">Thiết kế, sản xuất và thi công trọn gói cầu thang kính, gỗ, inox, sắt nghệ thuật và lan can nhôm đúc. Hơn 10 năm kinh nghiệm, hàng trăm công trình trên toàn miền Bắc.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href="#lien-he">Nhận tư vấn miễn phí</a>
+        <a class="btn btn-ghost" href="#san-pham">Xem mẫu cầu thang</a>
+      </div>
+      <ul class="hero-points">
+        <li>Bảo hành đến 5 năm</li>
+        <li>Giá xưởng, minh bạch</li>
+        <li>Lắp đặt nhanh 3–7 ngày</li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 400 300" fill="none">
+        <rect width="400" height="300" rx="16" fill="rgba(255,255,255,.06)"/>
+        <rect x="30" y="30" width="340" height="240" rx="10" fill="rgba(255,255,255,.08)"/>
+        <g fill="#e8a33d">
+          <rect x="60" y="226" width="80" height="18" rx="3"/>
+          <rect x="120" y="198" width="80" height="18" rx="3" opacity=".92"/>
+          <rect x="180" y="170" width="80" height="18" rx="3" opacity=".84"/>
+          <rect x="240" y="142" width="80" height="18" rx="3" opacity=".76"/>
+          <rect x="300" y="114" width="60" height="18" rx="3" opacity=".68"/>
+        </g>
+        <g fill="rgba(180,220,245,.45)" stroke="#bfe3f7" stroke-width="2">
+          <path d="M70 224 L70 190 L130 164 L130 196 Z"/>
+          <path d="M130 196 L130 162 L190 136 L190 168 Z"/>
+          <path d="M190 168 L190 134 L250 108 L250 140 Z"/>
+          <path d="M250 140 L250 106 L310 80 L310 112 Z"/>
+        </g>
+        <path d="M66 190 L312 80" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="330" cy="62" r="14" fill="#e8a33d" opacity=".9"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="box">
+      <div class="stat"><b>10+</b><span>Năm kinh nghiệm</span></div>
+      <div class="stat"><b>1.500+</b><span>Công trình hoàn thiện</span></div>
+      <div class="stat"><b>98%</b><span>Khách hàng hài lòng</span></div>
+      <div class="stat"><b>5 năm</b><span>Bảo hành kết cấu</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="gioi-thieu">
+  <div class="container grid">
+    <div>
+      <span class="eyebrow">Giới thiệu về chúng tôi</span>
+      <h2>Đơn vị tư vấn – thi công cầu thang uy tín tại Hà Nội</h2>
+      <p><b>{{brand}}</b> là đơn vị chuyên thiết kế, sản xuất và lắp đặt cầu thang, lan can, cổng cửa cho nhà phố, biệt thự, căn hộ duplex và công trình thương mại.</p>
+      <p>Chúng tôi giúp chủ nhà, kiến trúc sư và đơn vị thi công chọn đúng phương án: từ kiểu dáng, vật liệu, kích thước tiêu chuẩn đến phương pháp thi công phù hợp với từng không gian.</p>
+      <ul class="checks">
+        <li>Mẫu mã đa dạng: hiện đại, tân cổ điển, tối giản</li>
+        <li>Xưởng sản xuất riêng, kiểm soát chất lượng từng công đoạn</li>
+        <li>Vật tư rõ nguồn gốc: kính cường lực, gỗ tự nhiên, inox 304</li>
+        <li>Đội thợ lành nghề, thi công đúng tiến độ cam kết</li>
+      </ul>
+      <a class="btn btn-primary" href="#lien-he">Đặt lịch khảo sát</a>
+    </div>
+    <div class="video-ph" role="img" aria-label="Video giới thiệu (thay bằng video thật)">
+      <svg class="bg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><use href="#stairs" x="60" y="40" width="300" height="195" style="color:#7ea4c4"/></svg>
+      <div class="play"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="soft" id="san-pham">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Danh mục sản phẩm</span>
+      <h2>Giải pháp cầu thang cho mọi phong cách</h2>
+      <p>Chọn vật liệu phù hợp với ngân sách, không gian và gu thẩm mỹ của gia đình bạn.</p>
+    </div>
+    <div class="cards" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section id="ban-chay">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Cầu thang bán chạy</span>
+      <h2>Mẫu được khách hàng lựa chọn nhiều nhất</h2>
+      <p>Giá tham khảo theo mét dài, chưa gồm khảo sát và vận chuyển. Báo giá chính xác sau khi đo đạc thực tế.</p>
+    </div>
+    <div class="products" id="prodGrid"></div>
+    <p class="note">* Hình minh họa và giá chỉ mang tính tham khảo – hãy thay bằng ảnh và giá sản phẩm thật của bạn.</p>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="soft">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Vì sao chọn chúng tôi</span>
+      <h2>Cam kết chất lượng trong từng chi tiết</h2>
+    </div>
+    <div class="why">
+      <div class="why-item"><div class="ico">🛡️</div><h3>Bảo hành dài hạn</h3><p>Bảo hành kết cấu đến 5 năm, hỗ trợ bảo trì nhanh khi cần, không phát sinh chi phí ẩn.</p></div>
+      <div class="why-item"><div class="ico">🏭</div><h3>Xưởng sản xuất riêng</h3><p>Chủ động nguồn hàng, giá xưởng, kiểm tra chất lượng trước khi giao và lắp đặt.</p></div>
+      <div class="why-item"><div class="ico">📐</div><h3>Thiết kế theo không gian</h3><p>Kiến trúc sư tư vấn kích thước, độ dốc, bước bậc chuẩn công thái học, phù hợp phong thủy.</p></div>
+      <div class="why-item"><div class="ico">💎</div><h3>Vật liệu chuẩn</h3><p>Kính cường lực đạt chuẩn, inox 304, gỗ đã tẩm sấy, sơn tĩnh điện chống gỉ.</p></div>
+      <div class="why-item"><div class="ico">⏱️</div><h3>Đúng tiến độ</h3><p>Lịch thi công rõ ràng, đội thợ chuyên nghiệp, hoàn thiện sạch sẽ, bàn giao đúng hẹn.</p></div>
+      <div class="why-item"><div class="ico">🤝</div><h3>Báo giá minh bạch</h3><p>Báo giá chi tiết theo hạng mục, ký hợp đồng rõ ràng, thanh toán theo từng giai đoạn.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Quy trình làm việc</span>
+      <h2>5 bước đơn giản từ tư vấn đến bàn giao</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Tiếp nhận</h3><p>Gọi hotline hoặc để lại thông tin, chúng tôi liên hệ trong 15 phút.</p></div>
+      <div class="step"><h3>Khảo sát</h3><p>Đo đạc thực tế, tư vấn mẫu và vật liệu phù hợp tại công trình.</p></div>
+      <div class="step"><h3>Báo giá &amp; ký HĐ</h3><p>Báo giá chi tiết, bản vẽ 3D, ký hợp đồng và chốt tiến độ.</p></div>
+      <div class="step"><h3>Sản xuất &amp; lắp đặt</h3><p>Gia công tại xưởng, vận chuyển và lắp đặt nhanh gọn.</p></div>
+      <div class="step"><h3>Nghiệm thu</h3><p>Bàn giao, hướng dẫn sử dụng, bảo hành và bảo trì định kỳ.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="soft" id="cong-trinh">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Công trình tiêu biểu</span>
+      <h2>Những công trình chúng tôi đã thực hiện</h2>
+    </div>
+    <div class="projects" id="projGrid"></div>
+    <p class="note">* Tên công trình là nội dung mẫu – thay bằng công trình thật của bạn.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="danh-gia">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Ý kiến khách hàng</span>
+      <h2>Khách hàng nói gì về chúng tôi</h2>
+    </div>
+    <div class="quotes" id="quoteGrid"></div>
+    <p class="note">* Nội dung đánh giá là văn bản mẫu. Chỉ đăng ý kiến thật của khách hàng khi đưa trang vào sử dụng.</p>
+  </div>
+</section>
+
+<!-- SERVICES + NEWS -->
+<section class="soft">
+  <div class="container two-col">
+    <div>
+      <h2>Dịch vụ</h2>
+      <div class="list-item"><div class="mini" style="background:#d7ecf7">📝</div><div><h3>Tư vấn thiết kế cầu thang các loại</h3><p>Chọn kiểu dáng, vật liệu và kích thước tối ưu cho không gian của bạn.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#f0dcc2">🔧</div><div><h3>Sửa chữa, nâng cấp cầu thang cũ</h3><p>Thay tay vịn, mặt bậc, gia cố kết cấu xuống cấp.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#dcefe6">🏗️</div><div><h3>Thi công lắp đặt cầu thang</h3><p>Đội thợ lành nghề, lắp đặt nhanh, sạch sẽ, an toàn.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#e7ebef">🪵</div><div><h3>Thiết kế thi công cầu thang sàn gỗ</h3><p>Đồng bộ cầu thang với sàn gỗ và nội thất tổng thể.</p></div></div>
+    </div>
+    <div>
+      <h2>Tin tức &amp; kiến thức</h2>
+      <div class="list-item"><div class="mini" style="background:#e7ebef">📰</div><div><h3>Lắp đặt cầu thang kính – lựa chọn ưu tiên hiện nay</h3><p>Vì sao ngày càng nhiều gia đình chọn kính cho cầu thang.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#d7ecf7">📰</div><div><h3>Top 3 mẫu cầu thang kính hợp mọi ngôi nhà hiện đại</h3><p>Gợi ý kiểu dáng theo diện tích và phong cách nội thất.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#f3e6cf">📰</div><div><h3>Phong thủy cho cầu thang trong ngôi nhà của bạn</h3><p>Số bậc, hướng thang và những điều nên tránh.</p></div></div>
+      <div class="list-item"><div class="mini" style="background:#dadde2">📰</div><div><h3>Làm cửa cổng sắt CNC: nên chọn mẫu nào?</h3><p>So sánh các kiểu cổng CNC phổ biến hiện nay.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Câu hỏi thường gặp</span>
+      <h2>Giải đáp nhanh trước khi bạn quyết định</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Chi phí làm cầu thang kính khoảng bao nhiêu?</summary><p>Chi phí phụ thuộc vào độ dày kính, loại trụ, tay vịn và chiều dài thực tế. Chúng tôi khảo sát miễn phí và báo giá chi tiết theo từng hạng mục, không phát sinh ngoài hợp đồng.</p></details>
+      <details><summary>Thời gian thi công mất bao lâu?</summary><p>Thông thường từ 3–7 ngày sau khi chốt mẫu và đo đạc, tùy quy mô và vật liệu. Cầu thang gỗ hoặc thiết kế đặc biệt có thể cần thêm thời gian gia công.</p></details>
+      <details><summary>Có nhận thi công ở tỉnh ngoài Hà Nội không?</summary><p>Có. Chúng tôi nhận công trình ở các tỉnh lân cận như Hưng Yên, Bắc Ninh, Hải Dương, Vĩnh Phúc, Hà Nam, Phú Thọ... và các tỉnh khác theo thỏa thuận.</p></details>
+      <details><summary>Chế độ bảo hành như thế nào?</summary><p>Bảo hành kết cấu đến 5 năm, bảo hành phụ kiện theo chính sách nhà sản xuất. Khi có sự cố, đội kỹ thuật sẽ đến kiểm tra và xử lý trong thời gian sớm nhất.</p></details>
+      <details><summary>Tôi chưa có bản vẽ, có được tư vấn không?</summary><p>Hoàn toàn được. Chỉ cần gửi ảnh hoặc kích thước sơ bộ của vị trí đặt cầu thang, kiến trúc sư sẽ tư vấn mẫu và phương án phù hợp.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="soft" style="padding:44px 0">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:22px"><h2 style="font-size:1.3rem">Đối tác &amp; thương hiệu đồng hành</h2></div>
+    <div class="partners">
+      <span class="partner">ĐỐI TÁC 1</span><span class="partner">ĐỐI TÁC 2</span><span class="partner">ĐỐI TÁC 3</span><span class="partner">ĐỐI TÁC 4</span><span class="partner">ĐỐI TÁC 5</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="lien-he">
+  <div class="container grid">
+    <div>
+      <h2>Nhận tư vấn &amp; báo giá miễn phí hôm nay</h2>
+      <p>Để lại thông tin, chuyên viên sẽ gọi lại trong vòng 15 phút (giờ hành chính) để tư vấn mẫu và hẹn lịch khảo sát.</p>
+      <ul class="info-list">
+        <li><span class="i">📍</span><div><b>Địa chỉ</b><br>{{address}}</div></li>
+        <li><span class="i">📞</span><div><b>Hotline 24/7</b><br><a href="tel:{{phoneRaw}}">{{phone}}</a></div></li>
+        <li><span class="i">✉️</span><div><b>Email</b><br><a href="mailto:{{email}}">{{email}}</a></div></li>
+        <li><span class="i">🕗</span><div><b>Giờ làm việc</b><br>Thứ 2 – Thứ 7: 8:00 – 18:00</div></li>
+      </ul>
+    </div>
+    <form class="form" id="contactForm" novalidate>
+      <h3>Đăng ký tư vấn</h3>
+      <div class="field"><label for="name">Họ và tên *</label><input id="name" name="name" required placeholder="Nguyễn Văn A"></div>
+      <div class="field"><label for="phone">Số điện thoại *</label><input id="phone" name="phone" type="tel" required placeholder="09xx xxx xxx"></div>
+      <div class="field">
+        <label for="type">Loại cầu thang quan tâm</label>
+        <select id="type" name="type">
+          <option>Cầu thang kính</option><option>Cầu thang gỗ</option><option>Cầu thang inox</option>
+          <option>Cầu thang sắt</option><option>Nhôm đúc</option><option>Nhôm kính / kính cường lực</option><option>Chưa biết, cần tư vấn</option>
+        </select>
+      </div>
+      <div class="field"><label for="msg">Ghi chú</label><textarea id="msg" name="msg" rows="3" placeholder="Địa chỉ công trình, chiều cao tầng, yêu cầu riêng..."></textarea></div>
+      <button class="btn btn-accent" type="submit">Gửi yêu cầu</button>
+      <div class="form-msg" id="formMsg">Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất có thể.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <h4>{{brandUpper}}</h4>
+        <p>Thiết kế – sản xuất – thi công cầu thang, lan can, cổng cửa chất lượng cao.</p>
+        <p style="margin-top:10px">Địa chỉ: {{address}}<br>Điện thoại: {{phone}}</p>
+      </div>
+      <div>
+        <h4>Cầu thang</h4>
+        <ul><li><a href="#san-pham">Cầu thang kính</a></li><li><a href="#san-pham">Cầu thang gỗ</a></li><li><a href="#san-pham">Cầu thang inox</a></li><li><a href="#san-pham">Cầu thang sắt</a></li></ul>
+      </div>
+      <div>
+        <h4>Sản phẩm khác</h4>
+        <ul><li><a href="#san-pham">Nhôm đúc</a></li><li><a href="#san-pham">Kính cường lực</a></li><li><a href="#san-pham">Vách tắm kính</a></li><li><a href="#san-pham">Cổng cửa hàng rào</a></li></ul>
+      </div>
+      <div>
+        <h4>Liên kết</h4>
+        <ul><li><a href="#gioi-thieu">Giới thiệu</a></li><li><a href="#cong-trinh">Công trình</a></li><li><a href="#danh-gia">Khách hàng</a></li><li><a href="#lien-he">Liên hệ</a></li></ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 {{brand}}. Bảo lưu mọi quyền.</div>
+  </div>
+</footer>
+
+<div class="float">
+  <a class="zalo" href="https://zalo.me/{{phoneRaw}}" aria-label="Chat Zalo">Zalo</a>
+  <a class="call" href="tel:{{phoneRaw}}" aria-label="Gọi hotline">📞</a>
+</div>
+
+<script>
+  // Menu mobile
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){ menu.classList.toggle('open'); });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); });
+  });
+
+  // Form (demo): kiểm tra cơ bản. Cần gắn backend/Formspree/Google Forms để nhận dữ liệu thật.
+  var form = document.getElementById('contactForm');
+  var msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = form.name.value.trim();
+    var phone = form.phone.value.trim();
+    if(!name || !/^(0|\+84)[0-9\s.]{8,12}$/.test(phone)){
+      msg.style.display = 'block';
+      msg.style.background = '#fdecec';
+      msg.style.color = '#a12127';
+      msg.textContent = 'Vui lòng nhập họ tên và số điện thoại hợp lệ.';
+      return;
+    }
+    msg.style.display = 'block';
+    msg.style.background = '#e6f6ec';
+    msg.style.color = '#17623a';
+    msg.textContent = 'Cảm ơn ' + name + '! Chúng tôi sẽ liên hệ sớm nhất có thể.';
+    form.reset();
+  });
+</script>
+
+<script>
+/* =====================================================================
+   CẤU HÌNH NỘI DUNG
+   Có 2 cách chỉnh:
+   1) Sửa trực tiếp đối tượng DEFAULT_CONFIG bên dưới (tên, giá, đường dẫn ảnh...).
+   2) Mở trang với đuôi  #edit  (vd: landing-page.html#edit) để dùng bảng chỉnh sửa,
+      tải ảnh lên, rồi bấm "Xuất cấu hình". Dán nội dung đã xuất vào DEFAULT_CONFIG.
+   Ảnh: điền đường dẫn (vd "images/cau-thang-kinh.jpg" hoặc link https://...).
+   Để trống ảnh thì hiển thị hình minh họa mặc định.
+   tone (màu nền khi chưa có ảnh): glass | wood | inox | iron | alu | window
+   ===================================================================== */
+(function(){
+var DEFAULT_CONFIG = {
+  general: {
+    brandMain: 'Nhà Trinh Vip', brandSub: 'STUDIO',
+    phone: '0900 000 000', phoneRaw: '0900000000',
+    address: '123 Đường Mẫu, Hà Nội', email: 'lienhe@example.com'
+  },
+  categories: [
+    {name:'Cầu thang kính', desc:'Sang trọng, trong suốt, giúp không gian rộng và sáng hơn. Kính cường lực 10–12mm, tay vịn gỗ hoặc inox, trụ lửng hoặc không trụ.', image:'', tone:'glass', tag:'Phổ biến nhất', link:'#lien-he'},
+    {name:'Cầu thang gỗ', desc:'Ấm cúng, bền chắc, không mối mọt. Mặt bậc, tay vịn, trụ cái từ gỗ lim, gỗ sồi, gỗ xoan đào được xử lý kỹ.', image:'', tone:'wood', tag:'', link:'#lien-he'},
+    {name:'Cầu thang inox', desc:'Hiện đại, chống gỉ, dễ vệ sinh. Inox 304 nhập khẩu, đa dạng kiểu: tay vịn gỗ, tay vịn inox, dây cáp, lan can ngoài trời.', image:'', tone:'inox', tag:'', link:'#lien-he'},
+    {name:'Cầu thang sắt', desc:'Chi phí hợp lý, họa tiết nghệ thuật độc đáo. Cầu thang xương cá, sắt tay vịn gỗ, lan can sắt mỹ thuật sơn tĩnh điện.', image:'', tone:'iron', tag:'', link:'#lien-he'},
+    {name:'Nhôm đúc', desc:'Nhẹ, bền, không gỉ, bền màu với mưa nắng. Cổng cửa, lan can cầu thang và lan can ban công nhôm đúc phong cách cổ điển.', image:'', tone:'alu', tag:'', link:'#lien-he'},
+    {name:'Nhôm kính & kính cường lực', desc:'Vách tắm kính, mái kính, cửa kính cường lực, kính màu ốp bếp, cửa nhôm hệ – an toàn, chịu lực gấp nhiều lần kính thường.', image:'', tone:'window', tag:'', link:'#lien-he'}
+  ],
+  products: [
+    {name:'Cầu thang sắt giá rẻ', sku:'SGR-01', price:'800.000đ', oldPrice:'1.000.000đ', unit:'/m', image:'', tone:'iron', hot:true},
+    {name:'Cầu thang sắt nghệ thuật MD06', sku:'CTSNT-06', price:'', oldPrice:'', unit:'', image:'', tone:'iron', hot:true},
+    {name:'Cầu thang kính trụ lửng', sku:'CTK-TL02', price:'', oldPrice:'', unit:'', image:'', tone:'glass', hot:true},
+    {name:'Cầu thang kính tay vịn gỗ', sku:'CTK-TVG03', price:'', oldPrice:'', unit:'', image:'', tone:'wood', hot:true}
+  ],
+  projects: [
+    {name:'Cầu thang kính tay vịn gỗ – biệt thự Ecopark, Hưng Yên', image:'', tone:'glass'},
+    {name:'Cầu thang sắt tay vịn gỗ – Long Biên, Hà Nội', image:'', tone:'iron'},
+    {name:'Cầu thang kính chân trụ inox – Hải Dương', image:'', tone:'inox'},
+    {name:'Cầu thang kính không trụ – Gia Lâm, Hà Nội', image:'', tone:'glass'},
+    {name:'Cầu thang gỗ lim nhà phố – Cầu Giấy, Hà Nội', image:'', tone:'wood'},
+    {name:'Cầu thang kính trụ lửng – Vĩnh Phúc', image:'', tone:'glass'},
+    {name:'Lan can nhôm đúc ban công – Bắc Ninh', image:'', tone:'alu'},
+    {name:'Cầu thang kính chân trụ inox – Hà Nam', image:'', tone:'glass'}
+  ],
+  testimonials: [
+    {name:'Chị Hạnh', role:'Chủ cửa hàng thời trang, Cầu Giấy', text:'Tôi khá khó tính trong thiết kế nhà. Đội ngũ tư vấn rất kỹ, thi công gọn gàng và hoàn thiện đúng như bản vẽ ban đầu.'},
+    {name:'Anh Bình', role:'Chủ nhà, Hưng Yên', text:'Là người cầu toàn về thẩm mỹ, tôi hài lòng với chất lượng kính và phụ kiện inox. Giá minh bạch, không phát sinh.'},
+    {name:'Anh Thành', role:'Giám đốc công ty xây dựng', text:'Làm trong ngành xây dựng nên tôi hiểu giá trị của đối tác thi công đúng hẹn. Đội thợ chuyên nghiệp, sẽ tiếp tục hợp tác.'}
+  ]
+};
+
+var STORE = 'landing_cfg_v1';
+var TONES = ['glass','wood','inox','iron','alu','window'];
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function loadCfg(){
+  try{
+    var s = localStorage.getItem(STORE);
+    if(s){ var o = JSON.parse(s), base = clone(DEFAULT_CONFIG); for(var k in o) base[k] = o[k]; return base; }
+  }catch(e){}
+  return clone(DEFAULT_CONFIG);
+}
+var cfg = loadCfg();
+
+/* ---------- tiện ích ---------- */
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function safeUrl(u){ u = String(u || '').trim(); return /^(https?:|data:image\/|\/|\.\/|\.\.\/|[\w\-.%\/ ]+$)/i.test(u) ? u : ''; }
+function tone(t){ return TONES.indexOf(t) > -1 ? t : 'glass'; }
+function ph(item, extra){
+  var url = safeUrl(item.image);
+  return '<div class="ph ' + tone(item.tone) + (url ? ' has-img' : '') + '">' + (extra || '') +
+    (url ? '<img loading="lazy" src="' + esc(url) + '" alt="' + esc(item.name) + '">' : '') +
+    '<svg><use href="#stairs"/></svg></div>';
+}
+
+/* ---------- token {{...}} trong văn bản ---------- */
+var tokenNodes = [];
+function collectTokens(){
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT), n;
+  while((n = w.nextNode())){
+    if(n.nodeType === 3){
+      var pt = n.parentNode.tagName;
+      if(pt !== 'SCRIPT' && pt !== 'STYLE' && n.nodeValue.indexOf('{{') > -1) tokenNodes.push({n:n, t:n.nodeValue});
+    } else if(n.tagName !== 'SCRIPT' && n.tagName !== 'STYLE'){
+      for(var i = 0; i < n.attributes.length; i++){
+        var a = n.attributes[i];
+        if(a.value.indexOf('{{') > -1) tokenNodes.push({n:a, t:a.value});
+      }
+    }
+  }
+}
+function vars(){
+  var g = cfg.general || {}, sub = String(g.brandSub || '');
+  var subCap = sub ? sub.charAt(0).toUpperCase() + sub.slice(1).toLowerCase() : '';
+  var main = g.brandMain || '';
+  return {
+    brandMain: main, brandSub: sub, brand: (main + ' ' + subCap).trim(),
+    brandUpper: (main + ' ' + sub).trim().toUpperCase(),
+    phone: g.phone || '', phoneRaw: String(g.phoneRaw || '').replace(/[^\d+]/g, ''),
+    address: g.address || '', email: g.email || ''
+  };
+}
+function applyTokens(){
+  var v = vars();
+  tokenNodes.forEach(function(x){
+    var out = x.t.replace(/\{\{(\w+)\}\}/g, function(m, k){ return v[k] != null ? v[k] : m; });
+    if(x.n.nodeType === 3) x.n.nodeValue = out; else x.n.value = out;
+  });
+  document.title = v.brand + ' - Thiết kế & thi công cầu thang kính, gỗ, inox, sắt';
+}
+
+/* ---------- render các khối ---------- */
+function render(){
+  var el;
+  if((el = document.getElementById('catGrid'))) el.innerHTML = (cfg.categories || []).map(function(c){
+    return '<article class="card">' + ph(c, c.tag ? '<span class="tag">' + esc(c.tag) + '</span>' : '') +
+      '<div class="card-body"><h3>' + esc(c.name) + '</h3><p>' + esc(c.desc) + '</p>' +
+      '<a class="more" href="' + esc(c.link || '#lien-he') + '">Xem chi tiết</a></div></article>';
+  }).join('');
+
+  if((el = document.getElementById('prodGrid'))) el.innerHTML = (cfg.products || []).map(function(p){
+    var price = p.price
+      ? (p.oldPrice ? '<del>' + esc(p.oldPrice) + '</del>' : '') + '<b>' + esc(p.price) + '</b>' + (p.unit ? '<span class="sku"> ' + esc(p.unit) + '</span>' : '')
+      : '<i>Liên hệ báo giá</i>';
+    return '<article class="product">' + (p.hot ? '<span class="hot">HOT</span>' : '') + ph(p) +
+      '<div class="info"><h3>' + esc(p.name) + '</h3>' + (p.sku ? '<span class="sku">Mã: ' + esc(p.sku) + '</span>' : '') +
+      '<div class="price">' + price + '</div><a class="btn btn-accent" href="#lien-he" data-product="' + esc(p.name) + '">Đặt hàng ngay</a></div></article>';
+  }).join('');
+
+  if((el = document.getElementById('projGrid'))) el.innerHTML = (cfg.projects || []).map(function(p){
+    return '<article class="project">' + ph(p) + '<h3>' + esc(p.name) + '</h3></article>';
+  }).join('');
+
+  if((el = document.getElementById('quoteGrid'))) el.innerHTML = (cfg.testimonials || []).map(function(t){
+    var parts = String(t.name || '?').trim().split(/\s+/);
+    return '<div class="quote"><div class="stars">★★★★★</div><p>' + esc(t.text) + '</p>' +
+      '<div class="who"><div class="avatar">' + esc(parts[parts.length - 1].charAt(0).toUpperCase()) + '</div>' +
+      '<div><b>' + esc(t.name) + '</b><span>' + esc(t.role) + '</span></div></div></div>';
+  }).join('');
+
+  applyTokens();
+}
+
+/* bấm "Đặt hàng ngay": điền sẵn tên sản phẩm vào form */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('[data-product]');
+  if(!a) return;
+  var m = document.getElementById('msg');
+  if(m) m.value = 'Tôi quan tâm sản phẩm: ' + a.getAttribute('data-product');
+});
+
+function save(){
+  try{ localStorage.setItem(STORE, JSON.stringify(cfg)); }
+  catch(e){ alert('Không lưu được (bộ nhớ trình duyệt đầy). Hãy dùng ảnh nhỏ hơn hoặc dán đường dẫn ảnh.'); }
+  render();
+}
+
+/* ================= BẢNG CHỈNH SỬA (#edit) ================= */
+function h(tag, props){
+  var e = document.createElement(tag), kids = Array.prototype.slice.call(arguments, 2);
+  for(var k in (props || {})){
+    if(k === 'class') e.className = props[k];
+    else if(k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), props[k]);
+    else if(k === 'value' || k === 'checked' || k === 'textContent') e[k] = props[k];
+    else e.setAttribute(k, props[k]);
+  }
+  kids.forEach(function(c){ if(c == null) return; (Array.isArray(c) ? c : [c]).forEach(function(x){ e.append(x); }); });
+  return e;
+}
+
+function shrink(file, cb){
+  var r = new FileReader();
+  r.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      var max = 900, s = Math.min(1, max / Math.max(img.width, img.height));
+      var c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      cb(c.toDataURL('image/jpeg', 0.8));
+    };
+    img.onerror = function(){ alert('Không đọc được file ảnh này.'); };
+    img.src = r.result;
+  };
+  r.readAsDataURL(file);
+}
+
+function fieldEl(obj, def){
+  var key = def[0], label = def[1], type = def[2] || 'text', val = obj[key];
+  var wrap = h('div', {class:'ed-f'});
+  if(type === 'check'){
+    var cb = h('input', {type:'checkbox', checked: !!val, onchange:function(){ obj[key] = cb.checked; save(); }});
+    wrap.append(h('label', null, cb, ' ' + label));
+    return wrap;
+  }
+  wrap.append(h('label', null, label));
+  if(type === 'textarea'){
+    wrap.append(h('textarea', {value: val || '', oninput:function(e){ obj[key] = e.target.value; save(); }}));
+  } else if(type === 'select'){
+    var sel = h('select', {onchange:function(e){ obj[key] = e.target.value; save(); }},
+      TONES.map(function(t){ return h('option', {value:t}, t); }));
+    sel.value = val || 'glass'; wrap.append(sel);
+  } else if(type === 'image'){
+    var pv = h('div', {class:'pv'});
+    function setPv(){ var u = safeUrl(obj[key]); pv.style.backgroundImage = u ? 'url("' + u.replace(/"/g, '%22') + '")' : 'none'; }
+    var isData = String(val || '').indexOf('data:') === 0;
+    var txt = h('input', {type:'text', value: isData ? '' : (val || ''),
+      placeholder: isData ? 'Đã tải ảnh lên – dán URL để thay' : 'Đường dẫn ảnh (https://... hoặc images/a.jpg)',
+      oninput:function(e){ obj[key] = e.target.value.trim(); setPv(); save(); }});
+    var file = h('input', {type:'file', accept:'image/*', onchange:function(e){
+      var f = e.target.files[0]; if(!f) return;
+      shrink(f, function(d){ obj[key] = d; txt.value = ''; txt.placeholder = 'Đã tải ảnh lên – dán URL để thay'; setPv(); save(); });
+    }});
+    var clr = h('button', {type:'button', class:'ed-btn', onclick:function(){ obj[key] = ''; txt.value = ''; setPv(); save(); }}, 'Xóa ảnh');
+    setPv();
+    wrap.append(h('div', {class:'ed-img'}, pv, h('div', {class:'col'}, txt, file, clr)));
+  } else {
+    wrap.append(h('input', {type:'text', value: val || '', oninput:function(e){ obj[key] = e.target.value; save(); }}));
+  }
+  return wrap;
+}
+
+var SECTIONS = [
+  {id:'general', label:'Thông tin chung', fields:[
+    ['brandMain','Tên thương hiệu (dòng chính)'], ['brandSub','Chữ phụ (viết hoa, nhỏ)'],
+    ['phone','Số điện thoại hiển thị'], ['phoneRaw','Số điện thoại để bấm gọi (chỉ số)'],
+    ['address','Địa chỉ'], ['email','Email']]},
+  {id:'categories', label:'Danh mục', list:true, title:function(i){ return i.name || '(chưa đặt tên)'; },
+    blank:{name:'Danh mục mới', desc:'', image:'', tone:'glass', tag:'', link:'#lien-he'},
+    fields:[['name','Tên danh mục'],['desc','Mô tả','textarea'],['image','Hình ảnh','image'],['tone','Màu nền khi chưa có ảnh','select'],['tag','Nhãn nhỏ (tùy chọn)'],['link','Liên kết khi bấm "Xem chi tiết"']]},
+  {id:'products', label:'Sản phẩm', list:true, title:function(i){ return i.name || '(chưa đặt tên)'; },
+    blank:{name:'Sản phẩm mới', sku:'', price:'', oldPrice:'', unit:'/m', image:'', tone:'glass', hot:false},
+    fields:[['name','Tên sản phẩm'],['sku','Mã sản phẩm'],['price','Giá bán (để trống = "Liên hệ báo giá")'],['oldPrice','Giá cũ (gạch ngang, tùy chọn)'],['unit','Đơn vị (vd /m)'],['image','Hình ảnh','image'],['tone','Màu nền khi chưa có ảnh','select'],['hot','Gắn nhãn HOT','check']]},
+  {id:'projects', label:'Công trình', list:true, title:function(i){ return i.name || '(chưa đặt tên)'; },
+    blank:{name:'Công trình mới', image:'', tone:'glass'},
+    fields:[['name','Tên công trình'],['image','Hình ảnh','image'],['tone','Màu nền khi chưa có ảnh','select']]},
+  {id:'testimonials', label:'Khách hàng', list:true, title:function(i){ return i.name || '(chưa đặt tên)'; },
+    blank:{name:'Khách hàng', role:'', text:''},
+    fields:[['name','Tên khách hàng'],['role','Chức danh / địa chỉ'],['text','Nội dung đánh giá','textarea']]}
+];
+
+function buildEditor(){
+  var cur = 'general';
+  var panel = h('div', {class:'ed-panel', id:'edPanel'});
+  var tabs = h('div', {class:'ed-tabs'});
+  var body = h('div', {class:'ed-body'});
+
+  function drawTabs(){
+    tabs.innerHTML = '';
+    SECTIONS.forEach(function(s){
+      tabs.append(h('button', {type:'button', class: s.id === cur ? 'on' : '', onclick:function(){ cur = s.id; drawTabs(); drawBody(); }}, s.label));
+    });
+  }
+  function drawBody(){
+    body.innerHTML = '';
+    var s = SECTIONS.filter(function(x){ return x.id === cur; })[0];
+    if(!s.list){
+      cfg[s.id] = cfg[s.id] || {};
+      body.append(h('p', {class:'ed-hint'}, 'Thay đổi được lưu ngay trong trình duyệt này.'));
+      s.fields.forEach(function(f){ body.append(fieldEl(cfg[s.id], f)); });
+      return;
+    }
+    cfg[s.id] = cfg[s.id] || [];
+    var arr = cfg[s.id];
+    body.append(h('p', {class:'ed-hint'}, 'Bấm vào từng mục để sửa. Ảnh: dán link hoặc tải từ máy (tự thu nhỏ).'));
+    arr.forEach(function(item, idx){
+      var inner = h('div', {class:'in'});
+      s.fields.forEach(function(f){ inner.append(fieldEl(item, f)); });
+      inner.append(h('div', {class:'ed-row'},
+        h('button', {type:'button', class:'ed-btn', onclick:function(){ if(idx > 0){ arr.splice(idx - 1, 0, arr.splice(idx, 1)[0]); save(); drawBody(); } }}, '↑ Lên'),
+        h('button', {type:'button', class:'ed-btn', onclick:function(){ if(idx < arr.length - 1){ arr.splice(idx + 1, 0, arr.splice(idx, 1)[0]); save(); drawBody(); } }}, '↓ Xuống'),
+        h('button', {type:'button', class:'ed-btn red', onclick:function(){ if(confirm('Xóa mục này?')){ arr.splice(idx, 1); save(); drawBody(); } }}, 'Xóa')));
+      var d = h('details', {class:'ed-item'}, h('summary', null, (idx + 1) + '. ' + s.title(item)), inner);
+      body.append(d);
+    });
+    body.append(h('button', {type:'button', class:'ed-btn pri', onclick:function(){ arr.push(clone(s.blank)); save(); drawBody(); }}, '+ Thêm mục'));
+  }
+
+  var imp = h('input', {type:'file', accept:'application/json', style:'display:none', onchange:function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){ try{ var o = JSON.parse(r.result); cfg = Object.assign(clone(DEFAULT_CONFIG), o); save(); drawBody(); } catch(err){ alert('File cấu hình không hợp lệ.'); } };
+    r.readAsText(f);
+  }});
+  var foot = h('div', {class:'ed-foot'},
+    h('button', {type:'button', class:'ed-btn pri', onclick:function(){
+      var blob = new Blob([JSON.stringify(cfg, null, 2)], {type:'application/json'});
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'landing-config.json'; a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 500);
+    }}, 'Xuất cấu hình'),
+    h('button', {type:'button', class:'ed-btn', onclick:function(){ imp.click(); }}, 'Nhập cấu hình'),
+    h('button', {type:'button', class:'ed-btn red', onclick:function(){
+      if(confirm('Đặt lại toàn bộ về nội dung mặc định?')){ try{ localStorage.removeItem(STORE); }catch(e){} cfg = clone(DEFAULT_CONFIG); render(); drawBody(); }
+    }}, 'Đặt lại'), imp);
+
+  panel.append(
+    h('div', {class:'ed-head'}, h('b', null, '⚙ Cấu hình trang'), h('button', {type:'button', class:'ed-x', 'aria-label':'Đóng', onclick:function(){ panel.classList.remove('show'); }}, '×')),
+    tabs, body, foot);
+  var openBtn = h('button', {type:'button', class:'ed-open', onclick:function(){ panel.classList.toggle('show'); }}, '⚙ Cấu hình');
+  document.body.append(panel, openBtn);
+  drawTabs(); drawBody();
+}
+
+var editorBuilt = false;
+function checkEdit(){
+  if(!editorBuilt && (location.hash === '#edit' || /[?&]edit(=|&|$)/.test(location.search))){
+    editorBuilt = true; buildEditor();
+    document.getElementById('edPanel').classList.add('show');
+  }
+}
+window.addEventListener('hashchange', checkEdit);
+
+collectTokens();
+render();
+checkEdit();
+})();
+</script>
+</body>
+</html>
